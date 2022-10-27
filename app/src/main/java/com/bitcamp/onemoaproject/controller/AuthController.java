@@ -4,6 +4,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -21,7 +23,14 @@ public class AuthController {
     this.memberService = memberService;
   }
 
-  @PostMapping("/login") // 응답 url
+
+  @GetMapping("index") 
+  public String form(@CookieValue(name="email",defaultValue="") String email, Model model) throws Exception {
+    model.addAttribute("email", email);
+    return "index";
+  }
+
+  @PostMapping("login") // 응답 url
   public ModelAndView login(String email, String password, String saveEmail, HttpServletResponse response,
       HttpSession session) throws Exception {
 
@@ -39,7 +48,8 @@ public class AuthController {
       cookie.setMaxAge(60 * 60 * 24 * 7); // 7일
     }
     response.addCookie(cookie); 
-    ModelAndView mv = new ModelAndView("redirect:/");
+
+    ModelAndView mv = new ModelAndView("redirect:index");
     mv.addObject("member", member);
     return mv;
   }
@@ -48,7 +58,7 @@ public class AuthController {
   @GetMapping("logout") 
   public String logout(HttpSession session) throws Exception {
     session.invalidate(); 
-    return "redirect:/"; 
+    return "redirect:index"; 
   }
 }
 
