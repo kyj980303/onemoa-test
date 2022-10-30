@@ -22,11 +22,6 @@ public class App {
     return "index";
   }
 
-  @GetMapping("/contestTeam")
-  public String contestTeam() {
-    return "contestTeam";
-  }
-
   @GetMapping("/joinForm")
   public String joinForm() {
     return "joinForm";
