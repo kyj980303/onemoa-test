@@ -194,15 +194,15 @@
             <table class="contestInformation">
               <tr>
                 <td><span>></span>공모전명</td>
-                <td id="contestDetailCategory"></td>
+                <td id="contestDetailCategory2"></td>
               </tr>
               <tr>
                 <td><span>></span>주최명</td>
-                <td>해외자원개발진흥재단</td>
+                <td id="contestDetailPage">해외자원개발진흥재단</td>
               </tr>
               <tr>
                 <td><span>></span>공모전 설명</td>
-                <td>저희 회사는 한국 식품을 해외로 수출하고 있는 수출전문업체입니다. 본 라면의 주 타겟층은 한국 식품을 좋아하고 한국 라면을 좋아하는 해외 일반 20,30대입니다. 지금까지 많은 제품들을 디자인 업체를 통해서 해왔지만 항상 먼가가 아쉬웠기에 원모아를 통해서 디자인 공모전을 해보고자 합니다. 정말 정말 많은 분들의 참여를 바랍니다.</td>
+                <td id="contestDetailCont">저희 회사는 한국 식품을 해외로 수출하고 있는 수출전문업체입니다. 본 라면의 주 타겟층은 한국 식품을 좋아하고 한국 라면을 좋아하는 해외 일반 20,30대입니다. 지금까지 많은 제품들을 디자인 업체를 통해서 해왔지만 항상 먼가가 아쉬웠기에 원모아를 통해서 디자인 공모전을 해보고자 합니다. 정말 정말 많은 분들의 참여를 바랍니다.</td>
               </tr>
             </table>
 
@@ -633,11 +633,13 @@
         		$("#contestDetailOrg").text(result.org);
             $("#contestDetailOrg2").text(result.org);
             $("#contestDetailCategory").text(result.contCategory.categoryName);
+            $("#contestDetailCategory2").text(result.contCategory.categoryName);
             $("#contestDetailAppl").text(result.appl);
             $("#contestDetailQual").text(result.qual);
             $("#contestDetailReceptionPeriod").text(result.sdate + "~" + result.edate);
             $("#contestDetailReward").text(result.reward + "만원");
             $("#contestDetailPage").html("<a href='"+ result.page + "'>" + result.page +"</a>");
+            $("#contestDetailCont").text(result.cont);
         	},
         });
         
