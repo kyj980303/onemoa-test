@@ -1,12 +1,12 @@
 package com.bitcamp.onemoaproject.controller;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitcamp.onemoaproject.service.ContestService;
 import com.bitcamp.onemoaproject.vo.contest.Contest;
 
@@ -22,6 +22,7 @@ public class ContestController {
     this.contestService = contestService;
     this.sc = sc;
   }
+
   @GetMapping("contestTeam")
   public String list(Model model) throws Exception {
     model.addAttribute("contests", contestService.list());
@@ -29,16 +30,12 @@ public class ContestController {
     return "contest/contestTeam";
   }
 
-  @GetMapping("detail")
-  public Map detail(int no) throws Exception {
-    Contest contest = contestService.get(no);
-    if (contest == null) {
-      throw new Exception("해당 번호의 게시글이 없습니다!");
-    }
-
-    Map map = new HashMap();
-    map.put("contest", contest);
-    return map;
+  @ResponseBody
+  @PostMapping("contestTeam/detail")
+  public Contest contestTeamDetail(int contestNumber) throws Exception {
+    Contest contest = contestService.get(contestNumber);
+    System.out.println("contest");
+    return contest;
   }
 
 
