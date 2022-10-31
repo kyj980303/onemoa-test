@@ -9,11 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.bitcamp.onemoaproject.service.MemberService;
 import com.bitcamp.onemoaproject.vo.Member;
 
 @Controller
+@RequestMapping("/")
 public class AuthController {
   MemberService memberService;
 
@@ -57,7 +59,7 @@ public class AuthController {
   @GetMapping("logout")
   public String logout(HttpSession session) throws Exception {
     session.invalidate(); // 현재 세션을 무효화시킨다.
-    return "redirect:/index";
+    return "index";
   }
 
 

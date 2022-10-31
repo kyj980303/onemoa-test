@@ -4,7 +4,7 @@
     <meta charset = "UTF-8">
     <title>onemoa contestTeam</title>
     <link href="../css/onemoa.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../js/onemoa.js"></script>
   </head>
   <body style="overflow-x: hidden;">
@@ -47,7 +47,7 @@
       <div class="nav">
         <a href="/onemoa"><p class="logo">ONEMOA</p></a>
         <ul class="firstnav">
-          <li data-th-if="${session.loginMember != null}"><a href="logout" data-th-text="로그아웃">로그아웃</a></li>
+          <li data-th-if="${session.loginMember != null}"><a href="http://localhost:3333/onemoa/logout" data-th-text="로그아웃">로그아웃</a></li>
           <li><button class="btn-open-popup" data-th-if="${session.loginMember == null}">로그인</button></li>
           <li><a href="#">마이페이지</a></li>
           <li><a href="#">메시지</a></li>
@@ -56,7 +56,7 @@
 
       <div class="menu">
         <ul class="secnav">
-          <li><a href="list"><p>공모전</p></a></li>
+          <li><a href="contest/contestTeam"><p>공모전</p></a></li>
           <li><a href="#"><p>재능판매</p></a></li>
         </ul>
       </div>
@@ -737,6 +737,29 @@
       var trHtml2 = $(this).parent();
       trHtml2.remove(); //tr 테그 삭제
     });
+    
+    // 로그인 ajax 비동기 처리
+    $(".loginbtn").click(function () {
+      var email = $("#email").val();
+      var password = $("#password").val();
+      var saveEmail = $("input[type=checkbox][name=saveEmail]:checked").val();
+
+      $.ajax({
+        type: "POST",
+        url: "/onemoa/login",
+        data: {email: email, password: password, saveEmail: saveEmail},
+        success: function (result) {
+          if(result == "true") {
+            window.location.reload();
+          } else if (result == "false") {
+            document.getElementById("emailPasswordCheck").style.display = "block";
+            document.getElementById("emailPasswordCheck").value="이메일 또는 비밀번호가 일치하지 않습니다.";
+            document.getElementById("emailPasswordCheck").style.color="red";
+          }
+        },
+      });
+    }); 
+    
 
     </script>
   </body>

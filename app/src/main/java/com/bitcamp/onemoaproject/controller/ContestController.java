@@ -1,11 +1,14 @@
 package com.bitcamp.onemoaproject.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bitcamp.onemoaproject.service.ContestService;
+import com.bitcamp.onemoaproject.vo.Contest;
 
 @Controller
 @RequestMapping("contest")
@@ -19,17 +22,25 @@ public class ContestController {
     this.contestService = contestService;
     this.sc = sc;
   }
-  @GetMapping("list")
-  public void list(Model model) throws Exception {
+  @GetMapping("contestTeam")
+  public String list(Model model) throws Exception {
     model.addAttribute("contests", contestService.list());
+
+    return "contest/contestTeam";
   }
 
-  // InternalResourceViewResolver 사용 전:
-  //
-  //  @GetMapping("form")
-  //  public String form() throws Exception {
-  //    return "contest/form";
-  //  }
+  @GetMapping("detail")
+  public Map detail(int no) throws Exception {
+    Contest contest = contestService.get(no);
+    if (contest == null) {
+      throw new Exception("해당 번호의 게시글이 없습니다!");
+    }
+
+    Map map = new HashMap();
+    map.put("contest", contest);
+    return map;
+  }
+
 
   // InternalResourceViewResolver 사용 후:
   //  @GetMapping("form")
@@ -48,57 +59,47 @@ public class ContestController {
   //    contestService.add(contest);
   //    return "redirect:list";
   //  }
+
+  //  private List<AttachedFile> saveAttachedFiles(Part[] files)
+  //      throws IOException, ServletException {
+  //    List<AttachedFile> attachedFiles = new ArrayList<>();
+  //    String dirPath = sc.getRealPath("/contest/files");
   //
-  //  //  private List<AttachedFile> saveAttachedFiles(Part[] files)
-  //  //      throws IOException, ServletException {
-  //  //    List<AttachedFile> attachedFiles = new ArrayList<>();
-  //  //    String dirPath = sc.getRealPath("/contest/files");
-  //  //
-  //  //    for (Part part : files) {
-  //  //      if (part.getSize() == 0) {
-  //  //        continue;
-  //  //      }
-  //  //
-  //  //      String filename = UUID.randomUUID().toString();
-  //  //      part.write(dirPath + "/" + filename);
-  //  //      attachedFiles.add(new AttachedFile(filename));
-  //  //    }
-  //  //    return attachedFiles;
-  //  //  }
-  //  //
-  //  //  private List<AttachedFile> saveAttachedFiles(MultipartFile[] files)
-  //  //      throws IOException, ServletException {
-  //  //    List<AttachedFile> attachedFiles = new ArrayList<>();
-  //  //    String dirPath = sc.getRealPath("/contest/files");
-  //  //
-  //  //    for (MultipartFile part : files) {
-  //  //      if (part.isEmpty()) {
-  //  //        continue;
-  //  //      }
-  //  //
-  //  //      String filename = UUID.randomUUID().toString();
-  //  //      part.transferTo(new File(dirPath + "/" + filename));
-  //  //      attachedFiles.add(new AttachedFile(filename));
-  //  //    }
-  //  //    return attachedFiles;
-  //  //  }
+  //    for (Part part : files) {
+  //      if (part.getSize() == 0) {
+  //        continue;
+  //      }
+  //
+  //      String filename = UUID.randomUUID().toString();
+  //      part.write(dirPath + "/" + filename);
+  //      attachedFiles.add(new AttachedFile(filename));
+  //    }
+  //    return attachedFiles;
+  //  }
+  //
+  //  private List<AttachedFile> saveAttachedFiles(MultipartFile[] files)
+  //      throws IOException, ServletException {
+  //    List<AttachedFile> attachedFiles = new ArrayList<>();
+  //    String dirPath = sc.getRealPath("/contest/files");
+  //
+  //    for (MultipartFile part : files) {
+  //      if (part.isEmpty()) {
+  //        continue;
+  //      }
+  //
+  //      String filename = UUID.randomUUID().toString();
+  //      part.transferTo(new File(dirPath + "/" + filename));
+  //      attachedFiles.add(new AttachedFile(filename));
+  //    }
+  //    return attachedFiles;
+  //  }
   //
   //  @GetMapping("contestTeam")
   //  public void list(Model model) throws Exception {
   //    model.addAttribute("contests", contestService.list());
   //  }
   //
-  //  @GetMapping("detail")
-  //  public Map detail(int no) throws Exception {
-  //    Contest contest = contestService.get(no);
-  //    if (contest == null) {
-  //      throw new Exception("해당 번호의 게시글이 없습니다!");
-  //    }
-  //
-  //    Map map = new HashMap();
-  //    map.put("contest", contest);
-  //    return map;
-  //  }
+
   //
   //  @PostMapping("update")
   //  public String update(

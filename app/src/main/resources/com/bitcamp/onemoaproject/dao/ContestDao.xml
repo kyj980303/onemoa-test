@@ -59,23 +59,20 @@
       ctstno desc
   </select>
   
-    <select id="findByNo" resultMap="contestMap">
+  <select id="findByNo" resultMap="contestMap">
     select
-      b.bno,
-      b.title,
-      b.cont,
-      b.cdt,
-      b.vw_cnt,
-      m.mno,
-      m.name,
-      bf.bfno,
-      bf.filepath
+     org,
+     ctgno,
+     appl,
+     qual,
+     sDate,
+     eDate,
+     reward,
+     page
     from 
-      app_board b
-      join app_member m on b.mno = m.mno
-      left outer join app_board_file bf on b.bno=bf.bno
+      contest
     where 
-      b.bno=#{value}
+      ctstno=#{value}
   </select>
 
 <!--
