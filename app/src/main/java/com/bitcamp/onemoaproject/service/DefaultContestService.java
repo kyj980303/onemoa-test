@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.bitcamp.onemoaproject.dao.ContestDao;
-import com.bitcamp.onemoaproject.vo.Contest;
+import com.bitcamp.onemoaproject.vo.contest.Contest;
 
 @Service
 public class DefaultContestService implements ContestService {

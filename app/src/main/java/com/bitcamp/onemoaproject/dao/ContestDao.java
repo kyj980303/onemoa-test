@@ -2,7 +2,7 @@ package com.bitcamp.onemoaproject.dao;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
-import com.bitcamp.onemoaproject.vo.Contest;
+import com.bitcamp.onemoaproject.vo.contest.Contest;
 
 @Mapper
 public interface ContestDao {

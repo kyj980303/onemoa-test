@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.bitcamp.onemoaproject.service.ContestService;
-import com.bitcamp.onemoaproject.vo.Contest;
+import com.bitcamp.onemoaproject.vo.contest.Contest;
 
 @Controller
 @RequestMapping("contest")

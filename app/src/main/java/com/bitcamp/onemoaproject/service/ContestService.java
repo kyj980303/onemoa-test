@@ -1,7 +1,7 @@
 package com.bitcamp.onemoaproject.service;
 
 import java.util.List;
-import com.bitcamp.onemoaproject.vo.Contest;
+import com.bitcamp.onemoaproject.vo.contest.Contest;
 
 // 비즈니스 로직을 수행하는 객체의 사용규칙(호출규칙)
 //

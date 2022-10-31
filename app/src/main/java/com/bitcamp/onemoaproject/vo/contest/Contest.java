@@ -1,4 +1,4 @@
-package com.bitcamp.onemoaproject.vo;
+package com.bitcamp.onemoaproject.vo.contest;
 
 import java.sql.Date;
 
@@ -21,6 +21,8 @@ public class Contest {
   private String qual;
   private boolean team;
   private int reward;
+  private ContestOrg contOrg;
+  private ContestCategory contCategory;
 
   @Override
   public String toString() {
@@ -28,7 +30,7 @@ public class Contest {
         + title + ", subCont=" + subCont + ", createdDate=" + createdDate + ", sDate=" + sDate
         + ", eDate=" + eDate + ", vw_cnt=" + vw_cnt + ", org=" + org + ", appl=" + appl + ", cont="
         + cont + ", page=" + page + ", size=" + size + ", qual=" + qual + ", team=" + team
-        + ", reward=" + reward + "]";
+        + ", reward=" + reward + ", contOrg=" + contOrg + "]";
   }
 
   public int getCtstNo() {
@@ -133,10 +135,18 @@ public class Contest {
   public void setReward(int reward) {
     this.reward = reward;
   }
-
-
-
-
+  public ContestOrg getContOrg() {
+    return contOrg;
+  }
+  public void setContOrg(ContestOrg contOrg) {
+    this.contOrg = contOrg;
+  }
+  public ContestCategory getContCategory() {
+    return contCategory;
+  }
+  public void setContCategory(ContestCategory contCategory) {
+    this.contCategory = contCategory;
+  }
 
 
 }
