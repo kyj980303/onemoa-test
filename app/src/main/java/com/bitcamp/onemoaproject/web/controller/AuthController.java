@@ -1,4 +1,4 @@
-package com.bitcamp.onemoaproject.controller;
+package com.bitcamp.onemoaproject.web.controller;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

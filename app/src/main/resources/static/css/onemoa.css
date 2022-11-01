@@ -703,6 +703,7 @@ label[for="label-a"] {
 }
 .contest .contestContents .contestBox .con li {
   width: 100%;
+  height: auto;
 }
 .contest .contestContents .contestBox .con li:nth-of-type(1) {
   width: 12.047%;
@@ -713,8 +714,12 @@ label[for="label-a"] {
   float: left;
 }
 .contest .contestContents .contestBox .con li .conimg img {
-  width: 100%;
-  height: auto;
+  width: 177px;
+  height: 194px;
+}
+.contest .contestContents .contestBox .con li .contestName .contestHead {
+  width:100%;
+  height: 65px;
 }
 .contest .contestContents .contestBox .con li .contestName {
   width: 65.194%;
@@ -731,11 +736,15 @@ label[for="label-a"] {
   margin-right: 2%;
   font-weight: bold;
 }
-.contest .contestContents .contestBox .con li .contestName > p:nth-of-type(1) {
+.contest .contestContents .contestBox .con li .contestName .contestHead > p:nth-of-type(1) {
   color: #2152f6;
 }
 .contest .contestContents .contestBox .con li .contesttext p span {
   display: block;
+}
+.contest .contestContents .contestBox .con li .contesttext {
+  height: 110px;
+  overflow: hidden;
 }
 .contest .contestContents .contestBox .con li .contesttext p {
   position: relative;
@@ -859,8 +868,8 @@ label[for="label-a"] {
   height: auto;
 }
 .contestDetail .detail li .detailimg img {
-  width: 100%;
-  height: auto;
+  width: 392px;
+  height: 495px;
 }
 .contestDetail .detail li .contable {
   margin-left: 15.23%;
@@ -1003,6 +1012,7 @@ label[for="label-a"] {
   border: 1px solid rgb(142, 142, 142);
   padding: 10px 30px;
   margin-top: 20px;
+  width: 100%;
 }
 .contestIn .contestInformation tr {
   height: 70px;
@@ -1010,13 +1020,10 @@ label[for="label-a"] {
 .contestIn .contestInformation tr td span {
   color: #404cef;
   margin-right: 5%;
+  white-space : nowrap;
 }
 .contestIn .contestInformation tr td {
   font-size: 1.158vw;
-}
-.contestIn .contestInformation tr:nth-of-type(3) td:nth-of-type(1) {
-  position: relative;
-  top: -25px;
 }
 .contestIn .contestInformation tr:nth-of-type(3) td:nth-of-type(2) {
   position: relative;

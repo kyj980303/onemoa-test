@@ -35,6 +35,13 @@
     </association>
 
   </resultMap>
+  
+  <resultMap type="contestattachedFile" id="contestattachedFileMap">
+    <id column="ctstfno" property="ctstFno"/>
+    <result column="fname" property="fName"/>
+    <result column="filepath" property="filepath"/>
+    <result column="ctstno" property="ctstNo"/>
+  </resultMap>
 
   <select id="findAll" resultMap="contestMap">
     select
@@ -85,5 +92,37 @@
     where
     ctstno=#{value}
   </select>
+  
+  <insert id="insert" parameterType="contest"
+          useGeneratedKeys="true" keyColumn="ctstno" keyProperty="ctstNo">
+    insert into contest(orgno,org,ctgno,title,subcont,appl,qual,sdate,edate,reward,page,team,cont,vw_cnt) 
+    values(#{orgNo},#{org},#{ctgNo},#{title},#{subCont},#{appl},#{qual},#{sDate},#{eDate},#{reward},#{page},#{team},#{cont},1)
+  </insert>
+    
+  <select id="findFileByNo" resultMap="contestattachedFileMap">
+    select 
+      ctstfno, 
+      fname, 
+      fpath,
+      ctstno
+    from 
+      contest_file 
+    where 
+      ctstfno = #{value}
+  </select>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </mapper>

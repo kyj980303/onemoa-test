@@ -30,10 +30,16 @@ public class App {
     return "contestTeam";
   }
 
+  @GetMapping("/contest/contestForm")
+  public String contestForm() {
+    return "contest/contestForm";
+  }
+
   @GetMapping("/joinForm")
   public String joinForm() {
     return "joinForm";
   }
+
 
 }
 

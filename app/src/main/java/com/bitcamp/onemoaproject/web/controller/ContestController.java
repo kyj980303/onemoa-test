@@ -1,12 +1,16 @@
-package com.bitcamp.onemoaproject.controller;
+package com.bitcamp.onemoaproject.web.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import com.bitcamp.onemoaproject.service.ContestService;
 import com.bitcamp.onemoaproject.vo.contest.Contest;
 
@@ -30,36 +34,64 @@ public class ContestController {
     return "contest/contestTeam";
   }
 
+  @GetMapping("contestList")
+  public String contestList(Model model) throws Exception {
+    model.addAttribute("contests", contestService.list());
+    return "contest/contestList";
+  }
+
   @ResponseBody
   @PostMapping("contestTeam/detail")
   public Contest contestTeamDetail(int contestNumber) throws Exception {
     Contest contest = contestService.get(contestNumber);
-    System.out.println("contest");
     return contest;
   }
 
+  @GetMapping("contestDetail")
+  public Map contestDetail(int ctstNo) throws Exception {
+    Contest contest = contestService.get(ctstNo);
+    if (contest == null) {
+      throw new Exception("해당 번호의 게시글이 없습니다!");
+    }
 
-  // InternalResourceViewResolver 사용 후:
-  //  @GetMapping("form")
-  //  public void form() throws Exception {
-  //  }
-  //
-  //  @PostMapping("add") 
-  //  public String add(
-  //      Contest contest,
-  //      MultipartFile[] files,
-  //      HttpSession session) throws Exception {
-  //
-  //    // contest.setAttachedFiles(saveAttachedFiles(files));
-  //    // contest.setWriter((Member) session.getAttribute("loginMember"));
-  //
-  //    contestService.add(contest);
-  //    return "redirect:list";
-  //  }
+    Map map = new HashMap();
+    map.put("contest", contest);
+    return map;
+  }
 
-  //  private List<AttachedFile> saveAttachedFiles(Part[] files)
+
+  @PostMapping("add") 
+  public String add(
+      Contest contest,
+      MultipartFile[] files,
+      HttpSession session) throws Exception {
+
+    //contest.setAttachedFiles(saveAttachedFiles(files));
+
+    contestService.add(contest);
+    return "redirect:contestTeam";
+  }
+
+  //  private List<ContestAttachedFile> saveAttachedFiles(MultipartFile[] files)
   //      throws IOException, ServletException {
-  //    List<AttachedFile> attachedFiles = new ArrayList<>();
+  //    List<ContestAttachedFile> attachedFiles = new ArrayList<>();
+  //    String dirPath = sc.getRealPath("/board/files");
+  //
+  //    for (MultipartFile part : files) {
+  //      if (part.isEmpty()) {
+  //        continue;
+  //      }
+  //
+  //      String filename = UUID.randomUUID().toString();
+  //      part.transferTo(new File(dirPath + "/" + filename));
+  //      attachedFiles.add(new ContestAttachedFile(filename));
+  //    }
+  //    return attachedFiles;
+  //  }
+
+  //  private List<ContestAttachedFile> saveAttachedFiles(Part[] files)
+  //      throws IOException, ServletException {
+  //    List<ContestAttachedFile> attachedFiles = new ArrayList<>();
   //    String dirPath = sc.getRealPath("/contest/files");
   //
   //    for (Part part : files) {
@@ -69,33 +101,11 @@ public class ContestController {
   //
   //      String filename = UUID.randomUUID().toString();
   //      part.write(dirPath + "/" + filename);
-  //      attachedFiles.add(new AttachedFile(filename));
+  //      attachedFiles.add(new ContestAttachedFile(filename));
   //    }
   //    return attachedFiles;
   //  }
-  //
-  //  private List<AttachedFile> saveAttachedFiles(MultipartFile[] files)
-  //      throws IOException, ServletException {
-  //    List<AttachedFile> attachedFiles = new ArrayList<>();
-  //    String dirPath = sc.getRealPath("/contest/files");
-  //
-  //    for (MultipartFile part : files) {
-  //      if (part.isEmpty()) {
-  //        continue;
-  //      }
-  //
-  //      String filename = UUID.randomUUID().toString();
-  //      part.transferTo(new File(dirPath + "/" + filename));
-  //      attachedFiles.add(new AttachedFile(filename));
-  //    }
-  //    return attachedFiles;
-  //  }
-  //
-  //  @GetMapping("contestTeam")
-  //  public void list(Model model) throws Exception {
-  //    model.addAttribute("contests", contestService.list());
-  //  }
-  //
+
 
   //
   //  @PostMapping("update")

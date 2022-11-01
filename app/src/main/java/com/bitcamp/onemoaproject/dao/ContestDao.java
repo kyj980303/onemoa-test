@@ -3,6 +3,7 @@ package com.bitcamp.onemoaproject.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.bitcamp.onemoaproject.vo.contest.Contest;
+import com.bitcamp.onemoaproject.vo.contest.ContestAttachedFile;
 
 @Mapper
 public interface ContestDao {
@@ -21,7 +22,7 @@ public interface ContestDao {
 
   int insertFiles(Contest contest);
 
-  // AttachedFile findFileByNo(int fileNo);
+  ContestAttachedFile findFileByNo(int ctstFno);
 
   // List<AttachedFile> findFilesByContest(int contestNo);
 

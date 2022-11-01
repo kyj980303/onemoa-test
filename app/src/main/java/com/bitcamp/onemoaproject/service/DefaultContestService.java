@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.bitcamp.onemoaproject.dao.ContestDao;
 import com.bitcamp.onemoaproject.vo.contest.Contest;
+import com.bitcamp.onemoaproject.vo.contest.ContestAttachedFile;
 
 @Service
 public class DefaultContestService implements ContestService {
@@ -63,10 +64,10 @@ public class DefaultContestService implements ContestService {
     return contestDao.findAll();
   }
 
-  //  @Override
-  //  public AttachedFile getAttachedFile(int fileNo) throws Exception {
-  //    return contestDao.findFileByNo(fileNo);
-  //  }
+  @Override
+  public ContestAttachedFile getAttachedFile(int ctstFno) throws Exception {
+    return contestDao.findFileByNo(ctstFno);
+  }
   //
   //  @Override
   //  public boolean deleteAttachedFile(int fileNo) throws Exception {
