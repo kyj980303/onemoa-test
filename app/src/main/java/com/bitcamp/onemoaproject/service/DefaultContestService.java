@@ -22,10 +22,10 @@ public class DefaultContestService implements ContestService {
       throw new Exception("게시글 등록 실패!");
     }
 
-    //    // 2) 첨부파일 등록
-    //    if (contest.getAttachedFiles().size() > 0) {
-    //      contestDao.insertFiles(contest);
-    //    }
+    // 2) 첨부파일 등록
+    if (contest.getAttachedFiles().size() > 0) {
+      contestDao.insertFiles(contest);
+    }
   }
 
   @Transactional
@@ -53,7 +53,7 @@ public class DefaultContestService implements ContestService {
   @Override
   public boolean delete(int no) throws Exception {
     // 1) 첨부파일 삭제
-    contestDao.deleteFiles(no);
+    //contestDao.deleteFiles(no);
 
     // 2) 게시글 삭제
     return contestDao.delete(no) > 0;
@@ -68,11 +68,11 @@ public class DefaultContestService implements ContestService {
   public ContestAttachedFile getAttachedFile(int ctstFno) throws Exception {
     return contestDao.findFileByNo(ctstFno);
   }
-  //
-  //  @Override
-  //  public boolean deleteAttachedFile(int fileNo) throws Exception {
-  //    return contestDao.deleteFile(fileNo) > 0;
-  //  }
+
+  @Override
+  public boolean deleteAttachedFile(int fileNo) throws Exception {
+    return contestDao.deleteFile(fileNo) > 0;
+  }
 
 }
 

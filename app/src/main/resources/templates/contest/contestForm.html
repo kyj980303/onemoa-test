@@ -7,7 +7,7 @@
 <body>
   <h1 style="text-align: center;">공모전 입력</h1>
 
-  <form action='add' method="post" enctype="multipart/form-data">
+  <form action='contestAdd' method="post" enctype="multipart/form-data">
     <table border='1' style="margin: 0 auto;">
       <tr>
         <th>기관명</th>
@@ -22,6 +22,10 @@
       <tr>
         <th>주관</th>
         <td><input name='org' type='text' size='60'></td>
+      </tr>
+      <tr>
+        <th>썸네일</th>
+        <td><input name='files2' type="file" multiple></td>
       </tr>
       <tr>
         <th>공모전분야</th>
@@ -82,10 +86,10 @@
           <input type="radio" name="team" value="1" >팀전
         </td>
       </tr>
-      <!-- <tr>
+      <tr>
         <th>첨부파일</th>
         <td><input name='files' type="file" multiple></td>
-      </tr>  -->
+      </tr> 
       <tr>
         <th>공모전 상세설명</th>
         <td><textarea name='cont' rows='10' cols='60'></textarea></td>

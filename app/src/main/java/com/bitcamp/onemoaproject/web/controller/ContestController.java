@@ -1,8 +1,14 @@
 package com.bitcamp.onemoaproject.web.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import com.bitcamp.onemoaproject.service.ContestService;
 import com.bitcamp.onemoaproject.vo.contest.Contest;
+import com.bitcamp.onemoaproject.vo.contest.ContestAttachedFile;
 
 @Controller
 @RequestMapping("contest")
@@ -59,35 +66,107 @@ public class ContestController {
     return map;
   }
 
+  @PostMapping("contestUpdate")
+  public String update(
+      Contest contest,
+      // Part[] files,
+      HttpSession session) 
+          throws Exception {
 
-  @PostMapping("add") 
+    // contest.setAttachedFiles(saveAttachedFiles(files));
+
+    // checkOwner(contest.getNo(), session);
+
+    if (!contestService.update(contest)) {
+      throw new Exception("게시글을 변경할 수 없습니다!");
+    }
+
+    return "redirect:contestList";
+  }
+
+
+  @GetMapping("contestDelete")
+  public String delete(
+      int ctstNo, 
+      HttpSession session) 
+          throws Exception {
+
+    // checkOwner(no, session);
+    if (!contestService.delete(ctstNo)) {
+      throw new Exception("게시글을 삭제할 수 없습니다.");
+    }
+
+    return "redirect:contestList";
+  }
+
+  @GetMapping("fileDelete")
+  public String fileDelete(
+      int ctstFno,
+      HttpSession session) 
+          throws Exception {
+
+    ContestAttachedFile attachedFile = contestService.getAttachedFile(ctstFno); 
+
+    // Member loginMember = (Member) session.getAttribute("loginMember");
+    Contest contest = contestService.get(attachedFile.getCtstFno()); 
+
+    //    if (contest.getWriter().getNo() != loginMember.getNo()) {
+    //      throw new Exception("게시글 작성자가 아닙니다.");
+    //    }
+
+    if (!contestService.deleteAttachedFile(ctstFno)) {
+      throw new Exception("게시글 첨부파일을 삭제할 수 없습니다.");
+    }
+
+    return "redirect:ContestDetail?ctstNo=" + contest.getCtstNo();
+  }
+
+  @PostMapping("contestAdd") 
   public String add(
       Contest contest,
       MultipartFile[] files,
       HttpSession session) throws Exception {
 
-    //contest.setAttachedFiles(saveAttachedFiles(files));
+    contest.setAttachedFiles(saveAttachedFiles(files));
+    contest.setAttachedFiles(saveAttachedFiles2(files));
 
     contestService.add(contest);
     return "redirect:contestTeam";
   }
 
-  //  private List<ContestAttachedFile> saveAttachedFiles(MultipartFile[] files)
-  //      throws IOException, ServletException {
-  //    List<ContestAttachedFile> attachedFiles = new ArrayList<>();
-  //    String dirPath = sc.getRealPath("/board/files");
-  //
-  //    for (MultipartFile part : files) {
-  //      if (part.isEmpty()) {
-  //        continue;
-  //      }
-  //
-  //      String filename = UUID.randomUUID().toString();
-  //      part.transferTo(new File(dirPath + "/" + filename));
-  //      attachedFiles.add(new ContestAttachedFile(filename));
-  //    }
-  //    return attachedFiles;
-  //  }
+  private List<ContestAttachedFile> saveAttachedFiles2(MultipartFile[] files)
+      throws IOException, ServletException {
+    List<ContestAttachedFile> attachedFiles = new ArrayList<>();
+    String dirPath = sc.getRealPath("/contest/files");
+
+    for (MultipartFile part : files) {
+      if (part.isEmpty()) {
+        continue;
+      }
+
+      String filename = UUID.randomUUID().toString();
+      part.transferTo(new File(dirPath + "/" + filename));
+      attachedFiles.add(new ContestAttachedFile(filename));
+    }
+    return attachedFiles;
+  }
+
+  private List<ContestAttachedFile> saveAttachedFiles(MultipartFile[] files)
+      throws IOException, ServletException {
+    List<ContestAttachedFile> attachedFiles = new ArrayList<>();
+    String dirPath = sc.getRealPath("/contest/files");
+
+    for (MultipartFile part : files) {
+      if (part.isEmpty()) {
+        continue;
+      }
+
+      String filename = UUID.randomUUID().toString();
+      part.transferTo(new File(dirPath + "/" + filename));
+      attachedFiles.add(new ContestAttachedFile(filename));
+    }
+    return attachedFiles;
+  }
 
   //  private List<ContestAttachedFile> saveAttachedFiles(Part[] files)
   //      throws IOException, ServletException {
@@ -107,24 +186,7 @@ public class ContestController {
   //  }
 
 
-  //
-  //  @PostMapping("update")
-  //  public String update(
-  //      Contest contest,
-  //      Part[] files,
-  //      HttpSession session) 
-  //          throws Exception {
-  //
-  //    // contest.setAttachedFiles(saveAttachedFiles(files));
-  //
-  //    // checkOwner(contest.getNo(), session);
-  //
-  //    if (!contestService.update(contest)) {
-  //      throw new Exception("게시글을 변경할 수 없습니다!");
-  //    }
-  //
-  //    return "redirect:list";
-  //  }
+
 
   //  private void checkOwner(int contestNo, HttpSession session) throws Exception {
   //    Member loginMember = (Member) session.getAttribute("loginMember");
@@ -133,41 +195,8 @@ public class ContestController {
   //    }
   //  }
 
-  //  @GetMapping("delete")
-  //  public String delete(
-  //      int no, 
-  //      HttpSession session) 
-  //          throws Exception {
   //
-  //    checkOwner(no, session);
-  //    if (!contestService.delete(no)) {
-  //      throw new Exception("게시글을 삭제할 수 없습니다.");
-  //    }
-  //
-  //    return "redirect:list";
-  //  }
-  //
-  //  @GetMapping("fileDelete")
-  //  public String fileDelete(
-  //      int no,
-  //      HttpSession session) 
-  //          throws Exception {
-  //
-  //    AttachedFile attachedFile = contestService.getAttachedFile(no); 
-  //
-  //    Member loginMember = (Member) session.getAttribute("loginMember");
-  //    Contest contest = contestService.get(attachedFile.getContestNo()); 
-  //
-  //    if (contest.getWriter().getNo() != loginMember.getNo()) {
-  //      throw new Exception("게시글 작성자가 아닙니다.");
-  //    }
-  //
-  //    if (!contestService.deleteAttachedFile(no)) {
-  //      throw new Exception("게시글 첨부파일을 삭제할 수 없습니다.");
-  //    }
-  //
-  //    return "redirect:detail?no=" + contest.getNo();
-  //  }
+
 }
 
 

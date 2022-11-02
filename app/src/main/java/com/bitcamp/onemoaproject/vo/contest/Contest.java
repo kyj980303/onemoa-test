@@ -22,6 +22,7 @@ public class Contest {
   private String qual;
   private boolean team;
   private int reward;
+  private String thumbNail; 
   private ContestOrg contOrg;
   private ContestCategory contCategory;
 
@@ -34,8 +35,8 @@ public class Contest {
         + title + ", subCont=" + subCont + ", createdDate=" + createdDate + ", sDate=" + sDate
         + ", eDate=" + eDate + ", vw_cnt=" + vw_cnt + ", org=" + org + ", appl=" + appl + ", cont="
         + cont + ", page=" + page + ", size=" + size + ", qual=" + qual + ", team=" + team
-        + ", reward=" + reward + ", contOrg=" + contOrg + ", contCategory=" + contCategory
-        + ", attachedFiles=" + attachedFiles + "]";
+        + ", reward=" + reward + ", thumbNail=" + thumbNail + ", contOrg=" + contOrg
+        + ", contCategory=" + contCategory + ", attachedFiles=" + attachedFiles + "]";
   }
 
   public int getCtstNo() {
@@ -172,6 +173,14 @@ public class Contest {
 
   public void setReward(int reward) {
     this.reward = reward;
+  }
+
+  public String getThumbNail() {
+    return thumbNail;
+  }
+
+  public void setThumbNail(String thumbNail) {
+    this.thumbNail = thumbNail;
   }
 
   public ContestOrg getContOrg() {

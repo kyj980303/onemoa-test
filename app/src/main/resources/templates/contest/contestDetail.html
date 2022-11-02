@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 style="text-align: center; margin-top:70px;">게시글 상세 정보</h1>
-<form action='update' method="post" enctype="multipart/form-data">
+<form action='contestUpdate' method="post" enctype="multipart/form-data">
 <table border='1' style="margin: 0 auto;">
   <tr>
     <th>번호</th>
@@ -17,7 +17,7 @@
   </tr>
   <tr>
     <th>기관명</th>
-    <td data-th-text="${contest.org}">기관명
+    <td>
       <select name="orgNo">
         <option value="1">대기업</option>
         <option value="2">공공기관</option>
@@ -30,9 +30,16 @@
     <td><input name='org' type='text' size='60' value='주관' data-th-value="${contest.org}"></td>
   </tr>
   <tr>
+    <th>썸네일</th>
+    <td>
+      <img data-th-src="${'/onemoa/contest/files/'+contest.thumbNail}" style="width: 177px; height: 194px;">
+      <input name='files2' type="file" multiple data-th-value="${contest.thumbNail}">
+    </td>
+  </tr>
+  <tr>
     <th>공모전분야</th>
     <td>
-        <select name="ctgNo" data-th-value="${contest.contCategory.categoryName}" selected>
+        <select name="ctgNo" data-th-value="${contest.contCategory.categoryName}">
           <option value="1">기획/아이디어</option>
           <option value="2">광고/마케팅</option>
           <option value="3">사진/영상/UCC</option>
@@ -86,10 +93,21 @@
         <input type="radio" name="team" value="1" >팀전
       </td>
     </tr>
-      <!-- <tr> -->
-      <!-- <th>첨부파일</th> -->
-      <!-- <td><input name='files' type="file" multiple data-th-text="${contest.viewCount}">첨부파일</td> -->
-     <!-- </tr> -->
+    <tr>
+      <th>첨부파일</th>
+      <td>
+        <ul>
+          <li data-th-each="file : ${contest.contestAttachedFiles}">
+            <a href="files/test.gif"
+               data-th-href="@{files/{path}(path=${file.filepath})}"
+               data-th-text="${file.filepath}">test.gif</a>
+            [<a href="fileDelete?no=${file.no}"
+                data-th-href="@{fileDelete(no=${file.no})}">삭제</a>]
+          </li>
+        </ul>
+        파일 추가: <input name='files' type="file" multiple>
+      </td>
+    </tr>  
      <tr>
       <th>공모전상세설명</th>
       <td><textarea name='cont' rows='10' cols='60' data-th-text="${contest.cont}"></textarea></td>
@@ -97,9 +115,9 @@
 </table>
 <p style="text-align: center;">
   <button type='submit'>변경</button>
-  <a href='delete?ctstNo=1'
-     data-th-href="@{delete(ctstNo=${contest.ctstNo})}">삭제</a>
-  <a href='list'>목록</a>
+  <a href='contestDelete?ctstNo=1'
+     data-th-href="@{contestDelete(ctstNo=${contest.ctstNo})}">삭제</a>
+  <a href='contestList'>목록</a>
 </p>
 </form>
 </body>

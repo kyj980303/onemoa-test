@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bitcamp.onemoaproject.dao.ContestDao">
+
   <resultMap type="contest" id="contestMap">
     <id column="ctstno" property="ctstNo"/>
     <result column="orgno" property="orgNo"/>
@@ -21,6 +22,7 @@
     <result column="qual" property="qual"/>
     <result column="team" property="team"/>
     <result column="reward" property="reward"/>
+    <result column="thumbnail" property="thumbNail"/>
 
     <!-- 조인 결과에서 같은 게시글에 대해 한 개의 회원 데이터를 담을 경우 -->
     <association property="contOrg" javaType="contestOrg">
@@ -85,19 +87,31 @@
     size,
     qual,
     team,
-    reward
+    reward,
+    thumbnail,
+    cf.ctstfno,
+    cf.filepath
     from contest
     join contest_category cc on contest.ctgno = cc.ctgno
     join contest_organization co on contest.orgno = co.orgno
+    left outer join contest_file cf on contest.ctstno = cf.ctstno
     where
-    ctstno=#{value}
+    contest.ctstno=#{value}
   </select>
   
   <insert id="insert" parameterType="contest"
           useGeneratedKeys="true" keyColumn="ctstno" keyProperty="ctstNo">
-    insert into contest(orgno,org,ctgno,title,subcont,appl,qual,sdate,edate,reward,page,team,cont,vw_cnt) 
-    values(#{orgNo},#{org},#{ctgNo},#{title},#{subCont},#{appl},#{qual},#{sDate},#{eDate},#{reward},#{page},#{team},#{cont},1)
+    insert into contest(orgno,org,ctgno,title,subcont,appl,qual,sdate,edate,reward,page,team,cont,vw_cnt,thumbnail) 
+    values(#{orgNo},#{org},#{ctgNo},#{title},#{subCont},#{appl},#{qual},#{sDate},#{eDate},#{reward},#{page},#{team},#{cont},1,#{thumbNail})
   </insert>
+    
+  <insert id="insertFiles" parameterType="contest">
+    insert into contest_file(thumbnail,ctstno) 
+    values 
+    <foreach collection="attachedFiles" item="file" separator=",">
+      (#{file.filepath},#{ctstno})
+    </foreach>
+  </insert>  
     
   <select id="findFileByNo" resultMap="contestattachedFileMap">
     select 
@@ -111,9 +125,43 @@
       ctstfno = #{value}
   </select>
   
+  <delete id="deleteFiles">
+    delete from contest_file 
+    where ctstno=#{value}
+  </delete>
+  
+   <delete id="deleteFile">
+    delete from contest_file 
+    where ctstfno=#{value}
+  </delete>
+  
+  <update id="update" parameterType="contest">
+    update contest set 
+      ctstno=#{ctstNo}, 
+      orgno=#{orgNo},
+      ctgno=#{ctgNo}, 
+      title=#{title}, 
+      subcont=#{subCont}, 
+      sdate=#{sDate}, 
+      edate=#{eDate},
+      vw_cnt=#{vw_cnt}, 
+      org=#{org},
+      appl=#{appl}, 
+      cont=#{cont},
+      page=#{page}, 
+      size=#{size},
+      qual=#{qual}, 
+      team=#{team},
+      reward=#{reward},
+      thumbnail=#{thumbNail}
+    where ctstno=#{ctstNo}
+  </update>
 
-
-
+  <delete id="delete">
+    delete from contest 
+    where ctstno=#{value}
+  </delete>
+  
 
 
 

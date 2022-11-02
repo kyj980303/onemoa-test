@@ -20,7 +20,7 @@ public interface ContestService {
 
   ContestAttachedFile getAttachedFile(int ctstFno) throws Exception;
 
-  // boolean deleteAttachedFile(int fileNo) throws Exception;
+  boolean deleteAttachedFile(int fileNo) throws Exception;
 
 }
 
