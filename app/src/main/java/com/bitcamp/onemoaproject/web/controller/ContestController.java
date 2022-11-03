@@ -69,11 +69,13 @@ public class ContestController {
   @PostMapping("contestUpdate")
   public String update(
       Contest contest,
-      // Part[] files,
+      MultipartFile[] files,
+      MultipartFile files2,
       HttpSession session) 
           throws Exception {
 
-    // contest.setAttachedFiles(saveAttachedFiles(files));
+    contest.setAttachedFiles(saveAttachedFiles(files));
+    contest.setThumbNail(saveAttachedFiles2(files2));
 
     // checkOwner(contest.getNo(), session);
 
@@ -108,7 +110,7 @@ public class ContestController {
     ContestAttachedFile attachedFile = contestService.getAttachedFile(ctstFno); 
 
     // Member loginMember = (Member) session.getAttribute("loginMember");
-    Contest contest = contestService.get(attachedFile.getCtstFno()); 
+    Contest contest = contestService.get(attachedFile.getCtstNo()); 
 
     //    if (contest.getWriter().getNo() != loginMember.getNo()) {
     //      throw new Exception("게시글 작성자가 아닙니다.");
@@ -118,37 +120,32 @@ public class ContestController {
       throw new Exception("게시글 첨부파일을 삭제할 수 없습니다.");
     }
 
-    return "redirect:ContestDetail?ctstNo=" + contest.getCtstNo();
+    return "redirect:contestDetail?ctstNo=" + contest.getCtstNo();
   }
 
   @PostMapping("contestAdd") 
   public String add(
       Contest contest,
       MultipartFile[] files,
+      MultipartFile files2,
       HttpSession session) throws Exception {
 
     contest.setAttachedFiles(saveAttachedFiles(files));
-    contest.setAttachedFiles(saveAttachedFiles2(files));
+    contest.setThumbNail(saveAttachedFiles2(files2));
 
     contestService.add(contest);
-    return "redirect:contestTeam";
+    return "redirect:contestList";
   }
 
-  private List<ContestAttachedFile> saveAttachedFiles2(MultipartFile[] files)
+  private String saveAttachedFiles2(MultipartFile files)
       throws IOException, ServletException {
     List<ContestAttachedFile> attachedFiles = new ArrayList<>();
     String dirPath = sc.getRealPath("/contest/files");
 
-    for (MultipartFile part : files) {
-      if (part.isEmpty()) {
-        continue;
-      }
+    String filename = UUID.randomUUID().toString();
+    files.transferTo(new File(dirPath + "/" + filename));
 
-      String filename = UUID.randomUUID().toString();
-      part.transferTo(new File(dirPath + "/" + filename));
-      attachedFiles.add(new ContestAttachedFile(filename));
-    }
-    return attachedFiles;
+    return filename;
   }
 
   private List<ContestAttachedFile> saveAttachedFiles(MultipartFile[] files)
@@ -161,9 +158,11 @@ public class ContestController {
         continue;
       }
 
-      String filename = UUID.randomUUID().toString();
-      part.transferTo(new File(dirPath + "/" + filename));
-      attachedFiles.add(new ContestAttachedFile(filename));
+      String filepath = UUID.randomUUID().toString();
+      String filename = part.getOriginalFilename();
+      part.transferTo(new File(dirPath + "/" + filepath));
+      attachedFiles.add(new ContestAttachedFile(filename, filepath));
+
     }
     return attachedFiles;
   }

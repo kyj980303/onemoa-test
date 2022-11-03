@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:data-th-="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset = "UTF-8">
     <title>onemoa contestTeam</title>
@@ -91,7 +91,7 @@
           <a href="#"><ul class="con" data-th-each="contest : ${contests}" data-th-id="${contest.ctstNo}">
             <li>
               <div class="conimg">
-                <img src="../img/contestimg.png">
+                <img data-th-src="${'/onemoa/contest/files/'+contest.thumbNail}" style="width: 177px; height: 194px;">
               </div>
             </li>
             <li>
@@ -130,7 +130,7 @@
             <ul class="detail">
               <li>
                 <div class="detailimg">
-                  <img src="../img/conD.png">
+                  <img src="../img/conD.png" id ="contestDetailImg">
                 </div>
               </li>
               <li>
@@ -169,10 +169,8 @@
                   </tr>
                   <tr>
                     <td>[첨부파일]</td>
-                    <td>
-                      <span>[첨부파일]</span>
-                      <span>제8회 해외자원개발 바로알기 공모전 참가 신청서</span>
-                      <span>및 개인정보 이용 동의서.hwp</span>
+                    <td id="xNameList">
+                      <span style="position:relative; top:-50px;">[첨부파일]</span>
                     </td>
                   </tr>
                 </table>
@@ -619,6 +617,7 @@
     // 공모전 상세페이지 디테일
     $(".con").click(function() {
     	let contestNumber = $(this).attr("id");
+    	let contestTeam = $(this).attr("value"); // 공모전 팀여부(true/false)
     	
       if ($('.modal2').css('display') == 'none'){
         $('.modal2').show();
@@ -631,7 +630,9 @@
         	url: "/onemoa/contest/contestTeam/detail",
         	data: {contestNumber: contestNumber},
         	success: function (result) {
-        		console.log(result);
+        		console.log(result); 
+        		$("#contestDetailContOrg").text(result.contOrg.orgName);
+        		$("#contestDetailImg").attr("src","/onemoa/contest/files/"+result.thumbNail);
         		$("#contestDetailOrg").text(result.org);
             $("#contestDetailOrg2").text(result.org);
             $("#contestDetailCategory").text(result.contCategory.categoryName);
@@ -642,7 +643,20 @@
             $("#contestDetailReward").text(result.reward + "만원");
             $("#contestDetailPage").html("<a href='"+ result.page + "'>" + result.page +"</a>");
             $("#contestDetailCont").text(result.cont);
-        	},
+            
+            
+            
+            let arr = result.attachedFiles;
+            let spanList = "";
+            if (arr.length != 0) {
+              for (let i = 0; i < arr.length; i++) {
+                spanList += "<a href='" + "/onemoa/contest/files/" + arr[i].filepath + "'>"
+                    + "<span>" + arr[i].fName + "</span>" + "</a>";
+              }
+              var td = document.getElementById("xNameList");
+              td.innerHTML = spanList;
+            }
+          },
         });
         
       } else{

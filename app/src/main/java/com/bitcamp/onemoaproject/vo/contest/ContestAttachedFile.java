@@ -8,6 +8,11 @@ public class ContestAttachedFile {
 
   public ContestAttachedFile() {}
 
+  public ContestAttachedFile(String filename, String filepath) {
+    this.fName = filename;
+    this.filepath = filepath;
+  }
+
   public ContestAttachedFile(String filepath) {
     this.filepath = filepath;
   }
