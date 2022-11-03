@@ -97,12 +97,12 @@
       <th>첨부파일</th>
       <td>
         <ul>
-          <li data-th-each="file : ${contest.contestAttachedFiles}">
+          <li data-th-each="file : ${contest.attachedFiles}">
             <a href="files/test.gif"
                data-th-href="@{files/{path}(path=${file.filepath})}"
                data-th-text="${file.filepath}">test.gif</a>
-            [<a href="fileDelete?no=${file.no}"
-                data-th-href="@{fileDelete(no=${file.no})}">삭제</a>]
+            [<a href="fileDelete?ctstFno=${file.ctstFno}"
+                data-th-href="@{fileDelete(ctstFno=${file.ctstFno})}">삭제</a>]
           </li>
         </ul>
         파일 추가: <input name='files' type="file" multiple>

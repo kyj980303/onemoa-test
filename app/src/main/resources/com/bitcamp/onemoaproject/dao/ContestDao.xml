@@ -35,13 +35,21 @@
       <id column="ctgno" property="no"/>
       <result column="ccname" property="categoryName"/>
     </association>
+    
+    <!-- 조인 결과에서 같은 게시글에 대해 여러 개의 첨부 파일 데이터를 담을 경우 -->
+    <collection property="attachedFiles" ofType="contestattachedFile">
+      <id column="ctstfno" property="ctstFno"/>
+      <result column="fname" property="fName"/>
+      <result column="fpath" property="filepath"/>
+      <result column="ctstno" property="ctstNo"/>
+    </collection>
 
   </resultMap>
   
   <resultMap type="contestattachedFile" id="contestattachedFileMap">
     <id column="ctstfno" property="ctstFno"/>
     <result column="fname" property="fName"/>
-    <result column="filepath" property="filepath"/>
+    <result column="fpath" property="filepath"/>
     <result column="ctstno" property="ctstNo"/>
   </resultMap>
 
@@ -63,7 +71,8 @@
     size,
     qual,
     team,
-    reward
+    reward,
+    thumbnail
     from contest
     join contest_category cc on contest.ctgno = cc.ctgno
     join contest_organization co on contest.orgno = co.orgno;
@@ -71,32 +80,34 @@
 
   <select id="findByNo" resultMap="contestMap">
     select
-    ctstno,
-    co.name coname,
-    cc.name ccname,
-    title,
-    subcont,
-    cdt,
-    sdate,
-    edate,
-    vw_cnt,
-    org,
-    appl,
-    cont,
-    page,
-    size,
-    qual,
-    team,
-    reward,
-    thumbnail,
-    cf.ctstfno,
-    cf.filepath
-    from contest
-    join contest_category cc on contest.ctgno = cc.ctgno
-    join contest_organization co on contest.orgno = co.orgno
-    left outer join contest_file cf on contest.ctstno = cf.ctstno
+	    cont.ctstno,
+	    co.name coname,
+	    cc.name ccname,
+	    cont.title,
+	    cont.subcont,
+	    cont.cdt,
+	    cont.sdate,
+	    cont.edate,
+	    cont.vw_cnt,
+	    cont.org,
+	    cont.appl,
+	    cont.cont,
+	    cont.page,
+	    cont.size,
+	    cont.qual,
+	    cont.team,
+	    cont.reward,
+	    cont.thumbnail,
+	    cf.ctstfno ctstfno,
+	    cf.fpath fpath,
+	    cf.fname fname
+    from 
+	    contest cont
+	    join contest_category cc on cont.ctgno = cc.ctgno
+	    join contest_organization co on cont.orgno = co.orgno
+	    left outer join contest_file cf on cont.ctstno = cf.ctstno
     where
-    contest.ctstno=#{value}
+      cont.ctstno=#{value}
   </select>
   
   <insert id="insert" parameterType="contest"
@@ -106,10 +117,10 @@
   </insert>
     
   <insert id="insertFiles" parameterType="contest">
-    insert into contest_file(thumbnail,ctstno) 
+    insert into contest_file(fpath,ctstno,fname) 
     values 
     <foreach collection="attachedFiles" item="file" separator=",">
-      (#{file.filepath},#{ctstno})
+      (#{file.filepath},#{ctstNo},#{file.fName})
     </foreach>
   </insert>  
     

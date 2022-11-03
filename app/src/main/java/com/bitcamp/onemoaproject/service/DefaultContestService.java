@@ -36,10 +36,10 @@ public class DefaultContestService implements ContestService {
       return false;
     }
 
-    //    // 2) 첨부파일 추가
-    //    if (contest.getAttachedFiles().size() > 0) {
-    //      contestDao.insertFiles(contest);
-    //    }
+    // 2) 첨부파일 추가
+    if (contest.getAttachedFiles().size() > 0) {
+      contestDao.insertFiles(contest);
+    }
 
     return true;
   }
@@ -53,7 +53,7 @@ public class DefaultContestService implements ContestService {
   @Override
   public boolean delete(int no) throws Exception {
     // 1) 첨부파일 삭제
-    //contestDao.deleteFiles(no);
+    contestDao.deleteFiles(no);
 
     // 2) 게시글 삭제
     return contestDao.delete(no) > 0;
@@ -70,8 +70,8 @@ public class DefaultContestService implements ContestService {
   }
 
   @Override
-  public boolean deleteAttachedFile(int fileNo) throws Exception {
-    return contestDao.deleteFile(fileNo) > 0;
+  public boolean deleteAttachedFile(int ctstFno) throws Exception {
+    return contestDao.deleteFile(ctstFno) > 0;
   }
 
 }
