@@ -25,8 +25,8 @@
   </resultMap>
 
   <insert id="insert" parameterType="member">
-    insert into member(name,email,pwd) 
-    values(#{name},#{email},sha2(#{password},256))
+    insert into member(mno, name,email,pwd) 
+    values(#{mno},#{name},#{email},sha2(#{password},256))
   </insert>
 
   <select id="findByNo" resultMap="memberMap">

@@ -891,7 +891,8 @@ label[for="label-a"] {
 }
 .contestDetail .detail li .contable tr td span {
   display: block;
-  height: auto;
+  position: relative;
+  top: 23px;
 }
 .contestdtype {
   width: 100%;
@@ -2041,7 +2042,7 @@ label[for="label-a"] {
 }
 .joinForm-grid-item p span {
   color: red
-} 
+}
 .joinForm-grid-item .name-input {
   padding-left: 3%;
   font-size: 1vw;
@@ -2221,7 +2222,7 @@ label[for="label-a"] {
   display: none;
   outline:none;
 }
-  /*joinForm 관심사선택 multiselect*/
+/*joinForm 관심사선택 multiselect*/
 .interest-multiselect .interest {
   padding-left: 3%;
   font-size: 1vw;

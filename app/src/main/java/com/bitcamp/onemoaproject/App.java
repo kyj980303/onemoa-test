@@ -25,6 +25,11 @@ public class App {
     return "index";
   }
 
+  @GetMapping("/mypage")
+  public String mypage() {
+    return "mypage";
+  }
+
   @GetMapping("/contestTeam")
   public String contestTeam() {
     return "contestTeam";
@@ -33,6 +38,11 @@ public class App {
   @GetMapping("/contest/contestForm")
   public String contestForm() {
     return "contest/contestForm";
+  }
+
+  @GetMapping("/portfolio/portfolioForm")
+  public String portfolioForm() {
+    return "portfolio/portfolioForm";
   }
 
   @GetMapping("/joinForm")

@@ -30,6 +30,7 @@ public class AuthController {
 
     if (member != null) {
       session.setAttribute("loginMember", member);
+      System.out.println(member);
     }
 
     Cookie cookie = new Cookie("email", email);
