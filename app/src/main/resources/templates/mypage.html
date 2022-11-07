@@ -49,7 +49,7 @@
         <ul class="firstnav">
           <li data-th-if="${session.loginMember != null}"><a href="http://localhost:3333/onemoa/logout" data-th-text="로그아웃">로그아웃</a></li>
           <li><button class="btn-open-popup" data-th-if="${session.loginMember == null}">로그인</button></li>
-          <li><a href="mypage">마이페이지</a></li>
+          <li><a href="portfolio/portfolioList">마이페이지</a></li>
           <li><a href="#">메시지</a></li>
         </ul>
       </div>
@@ -92,7 +92,7 @@
               <p>포트폴리오를 등록하시면 프로필, 판매 중 서비스,</p>
               <p><span>원모아 포트폴리오 페이지에 노출</span>됩니다.</p>
               <img src="./img/insertPo.png">
-              <!-- <p class="insertbtn"><a href="portfolio/PortfolioAdd">포트폴리오 등록하기</a></p> -->
+              <p class="insertbtn"><a href="portfolio/portfolioForm">포트폴리오 등록하기</a></p>
             </div>
           </div>
         </div>

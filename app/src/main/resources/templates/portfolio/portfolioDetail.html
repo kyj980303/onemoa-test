@@ -49,7 +49,7 @@
         <ul class="firstnav">
           <li data-th-if="${session.loginMember != null}"><a href="http://localhost:3333/onemoa/logout" data-th-text="로그아웃">로그아웃</a></li>
           <li><button class="btn-open-popup" data-th-if="${session.loginMember == null}">로그인</button></li>
-          <li><a href="../mypage">마이페이지</a></li>
+          <li><a href="../portfolio/portfolioList">마이페이지</a></li>
           <li><a href="#">메시지</a></li>
         </ul>
       </div>
@@ -74,7 +74,7 @@
             <span class="mybar">
           </div>
           <ul class="mynav">
-            <li><a href="">나의 포트폴리오</a></li>
+            <li><a href="portfolioList">나의 포트폴리오</a></li>
             <li><a href="">구매관리</a></li>
             <li><a href="">판매관리</a></li>
             <li><a href="">나의 서비스관리</a></li>
@@ -90,7 +90,7 @@
           <div class="portfolioBoxCon2">
             <form action='portfolioUpdate' method="post" enctype="multipart/form-data">
               <table>
-               <tr>
+               <tr style="display:none;">
                  <td>내 포트폴리오 번호 <input class="ptNo" name='ptNo' type='number' value='포트폴리오 번호: 1' placeholder="포트폴리오 번호:" data-th-value="${portfolio.ptNo}" readonly></td>
                 </tr>
                 <tr>
@@ -99,12 +99,22 @@
                  <tr>
                   <td><textarea name="cont" rows='20' cols='60' placeholder="나의 포트폴리오를 설명해주세요." data-th-text="${portfolio.cont}"></textarea></td>
                 </tr>
-                <!-- <tr>
-                  <td>
-                    <label class="portFile" for="portFile">첨부파일<img class="portFileimg" src="../img/upload.png"></label>
-                    <input name='files' type="file" multiple id="portFile" class="pbtn">
+                <tr>
+                
+                <td>
+                <label class="portFile" for="portFile">첨부파일<img class="portFileimg" src="../img/upload.png"></label>
+                  <input name='files' type="file" multiple  id="portFile" class="pbtn">
                   </td>
-                </tr> -->
+                </tr>
+                <tr data-th-each="file : ${portfolio.attachedFiles}">
+                  <td>
+                    <a href="files/test.gif"
+                       data-th-href="@{files/{path}(path=${file.filepath})}"
+                       data-th-text="${file.fName}">test.gif</a>
+                    [<a href="fileDelete?ptfNo=${file.ptfNo}"
+                data-th-href="@{fileDelete(ptfNo=${file.ptfNo})}">삭제</a>]
+                  </td>
+                </tr>
               </table>
               <p class="portbtns">
                 <button type='submit' class="portsub">수정하기</button>

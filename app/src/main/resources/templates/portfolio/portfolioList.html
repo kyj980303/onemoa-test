@@ -50,7 +50,7 @@
         <ul class="firstnav">
           <li data-th-if="${session.loginMember != null}"><a href="http://localhost:3333/onemoa/logout" data-th-text="로그아웃">로그아웃</a></li>
           <li><button class="btn-open-popup" data-th-if="${session.loginMember == null}">로그인</button></li>
-          <li><a href="../mypage">마이페이지</a></li>
+          <li><a href="../portfolio/portfolioList">마이페이지</a></li>
           <li><a href="#">메시지</a></li>
         </ul>
       </div>
@@ -75,7 +75,7 @@
             <span class="mybar">
           </div>
           <ul class="mynav">
-            <li><a href="">나의 포트폴리오</a></li>
+            <li><a href="portfolioList">나의 포트폴리오</a></li>
             <li><a href="">구매관리</a></li>
             <li><a href="">판매관리</a></li>
             <li><a href="">나의 서비스관리</a></li>
@@ -87,11 +87,11 @@
       </li>
       <li class="mypageArea">
         <div class="mypagePortfolio">
-          <p class="mptxt2">나의 포트폴리오<span class="addport"><a href="portfolioForm">추가 등록하기</a></span></p>
+          <p class="mptxt2">나의 포트폴리오<span class="addport"><a href="portfolioForm">포트폴리오 등록하기</a></span></p>
           <div class="portfolioBoxCon">
             <ul class="portfolioList">
               <li data-th-each="portfolio : ${portfolios}">
-                <a href='portfolioDetail?ptNo=1' data-th-href="@{portfolioDetail?(ptNo=${portfolio.ptNo})}"><img src="../img/p.png"></a>
+                <a href='portfolioDetail?ptNo=1' data-th-href="@{portfolioDetail?(ptNo=${portfolio.ptNo})}"><img data-th-src="${'/onemoa/portfolio/files/' + portfolio.attachedFiles.filepath}"></a>
                 <p data-th-text="${portfolio.title}">포폴제목</p>
               </li>
             </ul>

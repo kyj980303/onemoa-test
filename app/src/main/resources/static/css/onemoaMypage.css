@@ -333,8 +333,27 @@ header {
   border-radius: 5px;
   background-color: #707fc2;
   font-size: 0.9vw;
+  margin-right: 1%;
 }
 .myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .portAddbtn:hover {
   background-color: #4a5480;
+  transition: all .3s;
+}
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .plist {
+  float: right;
+  position: relative;
+  left: -5%;
+  top: -15px;
+  border: none;
+  background-color: transparent;
+  text-align: center;
+  padding: 10px 15px;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #727272;
+  font-size: 0.9vw;
+}
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .plist:hover {
+  background-color: #424242;
   transition: all .3s;
 }

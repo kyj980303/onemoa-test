@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.bitcamp.onemoaproject.dao.PortfolioDao;
 import com.bitcamp.onemoaproject.vo.portfolio.Portfolio;
+import com.bitcamp.onemoaproject.vo.portfolio.PortfolioAttachedFile;
 
 @Service
 public class DefaultPortfolioService implements PortfolioService {
@@ -22,9 +23,9 @@ public class DefaultPortfolioService implements PortfolioService {
     }
 
     // 2) 첨부파일 등록
-    //    if (portfolio.getAttachedFiles().size() > 0) {
-    //      portfolioDao.insertFiles(portfolio);
-    //    }
+    if (portfolio.getAttachedFiles().size() > 0) {
+      portfolioDao.insertFiles(portfolio);
+    }
   }
 
   @Override
@@ -43,9 +44,9 @@ public class DefaultPortfolioService implements PortfolioService {
     }
 
     // 2) 첨부파일 추가
-    //    if (portfolio.getAttachedFiles().size() > 0) {
-    //      portfolioDao.insertFiles(portfolio);
-    //    }
+    if (portfolio.getAttachedFiles().size() > 0) {
+      portfolioDao.insertFiles(portfolio);
+    }
 
     return true;
   }
@@ -54,7 +55,7 @@ public class DefaultPortfolioService implements PortfolioService {
   @Override
   public boolean delete(int no) throws Exception {
     // 1) 첨부파일 삭제
-    //    portfolioDao.deleteFiles(no);
+    portfolioDao.deleteFiles(no);
 
     // 2) 게시글 삭제
     return portfolioDao.delete(no) > 0;
@@ -66,14 +67,15 @@ public class DefaultPortfolioService implements PortfolioService {
   }
 
   //  @Override
-  //  public PortfolioAttachedFile getAttachedFile(int ctstFno) throws Exception {
-  //    return portfolioDao.findFileByNo(ctstFno);
-  //  }
-  //
-  //  @Override
-  //  public boolean deleteAttachedFile(int ctstFno) throws Exception {
-  //    return portfolioDao.deleteFile(ctstFno) > 0;
-  //  }
+  @Override
+  public PortfolioAttachedFile getAttachedFile(int ptfNo) throws Exception {
+    return portfolioDao.findFileByNo(ptfNo);
+  }
+
+  @Override
+  public boolean deleteAttachedFile(int ptfNo) throws Exception {
+    return portfolioDao.deleteFile(ptfNo) > 0;
+  }
 
 }
 

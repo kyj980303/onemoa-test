@@ -23,32 +23,35 @@
     </association> -->
     
     <!-- 조인 결과에서 같은 게시글에 대해 여러 개의 첨부 파일 데이터를 담을 경우 -->
-    <!-- <collection property="attachedFiles" ofType="contestattachedFile">
-      <id column="ctstfno" property="ctstFno"/>
+    <collection property="attachedFiles" ofType="portfolioattachedFile">
+      <id column="ptfno" property="ptfNo"/>
       <result column="fname" property="fName"/>
       <result column="fpath" property="filepath"/>
-      <result column="ctstno" property="ctstNo"/>
-    </collection> -->
+      <result column="ptno" property="ptNo"/>
+    </collection>
 
   </resultMap>
   
- <!--  <resultMap type="contestattachedFile" id="contestattachedFileMap">
-    <id column="ctstfno" property="ctstFno"/>
+  <resultMap type="portfolioattachedFile" id="portfolioattachedFileMap">
+    <id column="ptfno" property="ptfNo"/>
     <result column="fname" property="fName"/>
     <result column="fpath" property="filepath"/>
-    <result column="ctstno" property="ctstNo"/>
-  </resultMap> -->
+    <result column="ptno" property="ptNo"/>
+  </resultMap>
 
   <select id="findAll" resultMap="portfolioMap">
     select
-	    ptno,
+	    pf.ptno,
 	    mno,
 	    title,
 	    cont,
-	    cdt
+	    cdt,
+	    pf.fname,
+	    pf.fpath
     from portfolio
+      join portfolio_file pf on portfolio.ptno = pf.ptno
     where 
-      portfolio.mno = #{mno}
+      mno = #{value};
   </select>
 
   <insert id="insert" parameterType="portfolio"
@@ -59,18 +62,22 @@
 
   <select id="findByNo" resultMap="portfolioMap">
     select
-	    ptno,
+	    pf.ptno,
+	    pf.ptfno,
       mno,
       title,
       cont,
-      cdt
+      cdt,
+      pf.fname,
+      pf.fpath
     from 
 	    portfolio
+	    join portfolio_file pf on portfolio.ptno = pf.ptno
     where
       portfolio.ptNo=#{value}
   </select>
   
-  <update id="update" parameterType="contest">
+  <update id="update" parameterType="portfolio">
     update portfolio set 
       title=#{title},
       cont=#{cont}
@@ -82,44 +89,35 @@
     where ptno=#{value}
   </delete>
   
-  
-  
-  
-  <!--   
-  <insert id="insertFiles" parameterType="contest">
-    insert into contest_file(fpath,ctstno,fname) 
+  <insert id="insertFiles" parameterType="portfolio">
+    insert into portfolio_file(fpath,ptno,fname) 
     values 
     <foreach collection="attachedFiles" item="file" separator=",">
-      (#{file.filepath},#{ctstNo},#{file.fName})
+      (#{file.filepath},#{ptNo},#{file.fName})
     </foreach>
   </insert>  
     
-  <select id="findFileByNo" resultMap="contestattachedFileMap">
+  <select id="findFileByNo" resultMap="portfolioattachedFileMap">
     select 
-      ctstfno, 
-      fname, 
+      ptfNo,
       fpath,
-      ctstno
+      ptno,
+      fname
     from 
-      contest_file 
+      portfolio_file 
     where 
-      ctstfno = #{value}
+      ptfno = #{value}
   </select>
   
   <delete id="deleteFiles">
-    delete from contest_file 
-    where ctstno=#{value}
+    delete from portfolio_file 
+    where ptno=#{value}
   </delete>
   
    <delete id="deleteFile">
-    delete from contest_file 
-    where ctstfno=#{value}
+    delete from portfolio_file 
+    where ptfno=#{value}
   </delete>
-  
-  
-
-  -->
-  
 
 
 

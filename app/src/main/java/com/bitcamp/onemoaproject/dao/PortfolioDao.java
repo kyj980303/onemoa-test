@@ -3,6 +3,7 @@ package com.bitcamp.onemoaproject.dao;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import com.bitcamp.onemoaproject.vo.portfolio.Portfolio;
+import com.bitcamp.onemoaproject.vo.portfolio.PortfolioAttachedFile;
 
 @Mapper
 public interface PortfolioDao {
@@ -19,17 +20,17 @@ public interface PortfolioDao {
 
   List<Portfolio> findAll(int mno);
 
-  //  int insertFiles(Portfolio portfolio);
-  //
-  //  PortfolioAttachedFile findFileByNo(int ctstFno);
-  //
-  //  List<AttachedFile> findFilesByPortfolio(int portfolioNo);
-  //
-  //  int deleteFile(int ctstFno);
-  //
-  //  int deleteFiles(int portfolioNo);
-  //
-  //  int deleteFilesByMemberPortfolios(int memberNo);
+  int insertFiles(Portfolio portfolio);
+
+  PortfolioAttachedFile findFileByNo(int ptfNo);
+
+  List<PortfolioAttachedFile> findFilesByPortfolio(int portfolioNo);
+
+  int deleteFile(int ptfNo);
+
+  int deleteFiles(int no);
+
+  int deleteFilesByMemberPortfolios(int memberNo);
 }
 
 

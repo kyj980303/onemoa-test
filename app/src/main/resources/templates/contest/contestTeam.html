@@ -49,7 +49,7 @@
         <ul class="firstnav">
           <li data-th-if="${session.loginMember != null}"><a href="http://localhost:3333/onemoa/logout" data-th-text="로그아웃">로그아웃</a></li>
           <li><button class="btn-open-popup" data-th-if="${session.loginMember == null}">로그인</button></li>
-          <li><a href="../mypage">마이페이지</a></li>
+          <li><a href="../portfolio/portfolioList">마이페이지</a></li>
           <li><a href="#">메시지</a></li>
         </ul>
       </div>
@@ -69,6 +69,7 @@
 
       <div class="contestctg">
         <ul class="conctg">
+          <li><a href="#">전체</a></li>
           <li><a href="#">개인전</a></li>
           <li><a href="#">팀전</a></li>
         </ul>
