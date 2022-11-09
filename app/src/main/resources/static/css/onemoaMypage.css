@@ -299,6 +299,12 @@ header {
   background-color: #4a5480;
   transition: all .3s;
 }
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 span {
+  border-top: 1px solid #999;
+  display: block;
+  width: 95%;
+  height: 50px;
+}
 .myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .portbtns a {
   border: none;
   background-color: transparent;
@@ -357,3 +363,48 @@ header {
   background-color: #424242;
   transition: all .3s;
 }
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .portfolioimglist {
+  width: 100%;
+  height: auto;
+  display: inline-block;
+}
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .portfolioimglist li {
+  float: left;
+  height: auto;
+  margin-right: 6%;
+}
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .addfilecon {
+  width: 95%;
+  height: auto;
+  border: 1px solid #999;
+  padding: 2%;
+  margin-bottom: 50px;
+}
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .addfile p {
+  font-size: 1vw;
+  
+}
+.myPage .mypageArea2 .mypagePortfolio .portfolioBoxCon2 .addfile .preimg {
+  width: 260px;
+  height: 260px; 
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

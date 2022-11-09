@@ -91,7 +91,7 @@
           <div class="portfolioBoxCon">
             <ul class="portfolioList">
               <li data-th-each="portfolio : ${portfolios}">
-                <a href='portfolioDetail?ptNo=1' data-th-href="@{portfolioDetail?(ptNo=${portfolio.ptNo})}"><img data-th-src="${'/onemoa/portfolio/files/' + portfolio.attachedFiles.filepath}"></a>
+                <a href='portfolioDetail?ptNo=1' data-th-href="@{portfolioDetail?(ptNo=${portfolio.ptNo})}"><img data-th-src="${'/onemoa/portfolio/files/'+ portfolio.attachedFiles[0].filepath}" style="width: 255px; height: 255px;"></a>
                 <p data-th-text="${portfolio.title}">포폴제목</p>
               </li>
             </ul>

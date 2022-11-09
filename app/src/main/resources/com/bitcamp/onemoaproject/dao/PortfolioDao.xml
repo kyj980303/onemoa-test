@@ -47,7 +47,8 @@
 	    cont,
 	    cdt,
 	    pf.fname,
-	    pf.fpath
+	    pf.fpath,
+	    pf.ptfno
     from portfolio
       join portfolio_file pf on portfolio.ptno = pf.ptno
     where 

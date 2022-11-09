@@ -44,6 +44,7 @@ public class ContestController {
   @GetMapping("contestList")
   public String contestList(Model model) throws Exception {
     model.addAttribute("contests", contestService.list());
+
     return "contest/contestList";
   }
 
