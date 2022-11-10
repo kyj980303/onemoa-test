@@ -6,9 +6,10 @@
 .portfolioLinkClick .portpart:nth-of-type(1) {
   width: 40%;
   position: fixed;
+  margin-left: 1%;
 }
 .portfolioLinkClick .portpart:nth-of-type(2) {
-  margin-left: 40%;
+  margin-left: 42%;
 }
 .portfolioLinkClick .portpart {
   float: left;
@@ -64,7 +65,7 @@
 }
 .portfolioLinkClick .portpart .otherport .otherlist {
   width: auto;
-  height: 170px;
+  height: 220px;
   overflow: scroll; 
 }
 .portfolioLinkClick .portpart .otherport p {
@@ -73,15 +74,17 @@
 }
 .portfolioLinkClick .portpart .otherport .otherlist li {
   float: left;
+  width:40%;
   margin-right: 3%;
 }
 .portfolioLinkClick .portpart .otherport .otherlist li p {
-  text-align: center;
   font-weight: normal;
   margin-top: -0.01px;
+  text-align: center;
+  margin-left: -10px;
 }
 .portfolioLinkClick .portpart .portbig {
-  width: 90%;
+  width: 95%;
   height: auto;
 }
 .portfolioLinkClick .portpart .portbig img {

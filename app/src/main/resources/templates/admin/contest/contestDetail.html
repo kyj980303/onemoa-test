@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>bitcamp</title>
+<style>
+ a {
+    text-decoration: none;
+    color: black;
+  }
+</style>
 </head>
 <body>
 <h1 style="text-align: center; margin-top:70px;">게시글 상세 정보</h1>
@@ -115,9 +121,8 @@
 </table>
 <p style="text-align: center;">
   <button type='submit'>변경</button>
-  <a href='contestDelete?ctstNo=1'
-     data-th-href="@{contestDelete(ctstNo=${contest.ctstNo})}">삭제</a>
-  <a href='contestList'>목록</a>
+  <button><a href='contestDelete?ctstNo=1'
+     data-th-href="@{contestDelete(ctstNo=${contest.ctstNo})}">삭제</a></button>
 </p>
 </form>
 </body>

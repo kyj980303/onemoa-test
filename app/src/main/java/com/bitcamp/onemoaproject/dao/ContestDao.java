@@ -24,7 +24,7 @@ public interface ContestDao {
 
   ContestAttachedFile findFileByNo(int ctstFno);
 
-  // List<AttachedFile> findFilesByContest(int contestNo);
+  // List<ContestAttachedFile> findFilesByContest(int contestNo);
 
   int deleteFile(int ctstFno);
 

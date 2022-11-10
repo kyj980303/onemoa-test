@@ -173,11 +173,26 @@
     where ctstno=#{value}
   </delete>
   
+  <!-- <delete id="deleteFilesByMemberContests">
+    delete from contest_file 
+    where ctstno in (select ctstno from contest where mno = #{value})
+  </delete>
 
+  <delete id="deleteByMember">
+    delete from contest 
+    where mno=#{value}
+  </delete>
 
-
-
-
+  <select id="findFilesByContest" resultMap="contestattachedFileMap">
+    select 
+      ctfno, 
+      fpath, 
+      ctstno 
+    from 
+      contest_file 
+    where 
+      ctstno = #{value}
+  </select> -->
 
 
 

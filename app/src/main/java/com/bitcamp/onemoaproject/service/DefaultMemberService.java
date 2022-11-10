@@ -3,6 +3,8 @@ package com.bitcamp.onemoaproject.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.bitcamp.onemoaproject.dao.ContestDao;
 import com.bitcamp.onemoaproject.dao.MemberDao;
 import com.bitcamp.onemoaproject.vo.Member;
 
@@ -12,8 +14,8 @@ public class DefaultMemberService implements MemberService {
   @Autowired
   MemberDao memberDao;
 
-  //  @Autowired
-  //  BoardDao boardDao;
+  @Autowired
+  ContestDao contestDao;
 
 
   @Override
@@ -36,13 +38,13 @@ public class DefaultMemberService implements MemberService {
     return memberDao.findByEmailPassword(email, password);
   }
 
-  //  @Transactional
-  //  @Override
-  //  public boolean delete(int no) throws Exception {
-  //    boardDao.deleteFilesByMemberBoards(no); // 회원이 작성한 게시글의 모든 첨부파일 삭제
-  //    boardDao.deleteByMember(no); // 회원이 작성한 게시글 삭제
-  //    return memberDao.delete(no) > 0; // 회원 삭제
-  //  }
+  @Transactional
+  @Override
+  public boolean delete(int no) throws Exception {
+    contestDao.deleteFilesByMemberContests(no); // 회원이 작성한 게시글의 모든 첨부파일 삭제
+    contestDao.deleteByMember(no); // 회원이 작성한 게시글 삭제
+    return memberDao.delete(no) > 0; // 회원 삭제
+  }
 
   @Override
   public List<Member> list() throws Exception {

@@ -3,10 +3,10 @@
   <head>
     <meta charset = "UTF-8">
     <title>onemoa mypage</title>
-    <link href="../css/onemoa.css" rel="stylesheet">
-    <link href="../css/onemoaMypage.css" rel="stylesheet">
+    <link href="/onemoa/css/onemoa.css" rel="stylesheet">
+    <link href="/onemoa/css/onemoaMypage.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../js/onemoa.js"></script>
+    <script src="/onemoa/js/onemoa.js"></script>
   </head>
   <body style="overflow-x: hidden">
     
@@ -122,10 +122,10 @@
               </ul>
               <span></span>
               <p class="portbtns">
+                <button id="list-btn" type='button' class="portsub">목록보기</button>
+                <button id="delete-btn" type='button' class="portsub">삭제하기</button>
                 <button type='submit' class="portsub">수정하기</button>
-                <a href='portfolioDelete?ptNo=1' data-th-href="@{portfolioDelete(ptNo=${portfolio.ptNo})}">삭제하기</a>
-                <a href='portfolioList'>목록보기</a>
-              </p>
+              </p> 
             </form>
           </div>
         </div>
@@ -148,6 +148,14 @@
     </footer>
 
     <script>
+    $("#list-btn").click(() => {
+        window.location.href = "portfolioList";
+      });
+      
+      $("#delete-btn").click(() => {
+        window.location.href = "portfolioDelete?ptNo=[[${portfolio.ptNo}]]";
+      });
+      
       const body = document.querySelector('body');
       const modal = document.querySelector('.modal');
       const btnOpenPopup = document.querySelector('.btn-open-popup');

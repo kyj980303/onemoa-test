@@ -15,7 +15,7 @@ public interface MemberService {
 
   Member get(String email, String password) throws Exception;
 
-  //boolean delete(int no) throws Exception;
+  boolean delete(int no) throws Exception;
 
   List<Member> list() throws Exception;
 }
