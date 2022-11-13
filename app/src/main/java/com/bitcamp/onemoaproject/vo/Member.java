@@ -19,7 +19,7 @@ public class Member {
   private String account;
   private String profile;
   private String token;
-  private boolean status;
+  private int status;
   private String interests;
 
   @Override
@@ -121,10 +121,10 @@ public class Member {
   public void setToken(String token) {
     this.token = token;
   }
-  public boolean isStatus() {
+  public int isStatus() {
     return status;
   }
-  public void setStatus(boolean status) {
+  public void setStatus(int status) {
     this.status = status;
   }
   public String getInterests() {

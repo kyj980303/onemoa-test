@@ -50,7 +50,11 @@
       base_addr,
       detail_addr,
       jno,
-      cdt
+      cdt,      
+      pwd,
+      bank,
+      account,
+      profile
     from 
       member 
     where 
@@ -78,6 +82,19 @@
     where
     email=#{email} and pwd=sha2(#{password},256)
   </select>
+  
+  <select id="findByEmail" resultMap="memberMap">
+    select
+    mno,
+    email,
+    pwd
+    from
+    member
+    where
+    email=#{email}
+  </select>
+  
+  
 
   <update id="update" parameterType="Member">
     update member set 
@@ -88,7 +105,33 @@
       pstno=#{postNo},
       base_addr=#{baseAddr},
       detail_addr=#{detailAddr},
-      pwd=sha2(#{password},256) 
+      pwd=sha2(#{password},256),
+      bank=#{bank},
+      account=#{account},
+      profile=#{profile}
+    where 
+      mno=#{no}
+  </update>
+  
+  <update id="updateStatus" parameterType="Member">
+    update member set 
+      status=0
+    where 
+      email=#{email}
+  </update>
+  
+    <update id="myinfoUpdate" parameterType="Member">
+    update member set 
+      name=#{name},
+      nick=#{nickname},
+      email=#{email},
+      jno=#{jobNo},
+      pstno=#{postNo},
+      base_addr=#{baseAddr},
+      detail_addr=#{detailAddr},
+      bank=#{bank},
+      account=#{account},
+      profile=#{profile}
     where 
       mno=#{no}
   </update>
@@ -98,7 +141,13 @@
     where mno=#{value}
   </delete>
   
-  
+  <update id="modifyPasswd" parameterType="Member">
+    update member set 
+      pwd=#{newPassword}
+    where 
+      email=#{email}
+      
+  </update>
   
   
 </mapper>

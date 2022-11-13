@@ -12,11 +12,21 @@ public interface MemberDao {
 
   Member findByNo(int no);
 
+  Member findByEmail(String email);
+
   int update(Member member);
+
+  int updateStatus(String email);
+
+  int myinfoUpdate(Member member);
 
   int delete(int no);
 
   List<Member> findAll();
+
+  void modifyPasswd(
+      @Param("email") String email, 
+      @Param("newPassword") String newPassword);
 
   // 메서드의 파라미터가 여러 개일 때:
   // - SQL에서 참조할 파라미터라고 애노테이션으로 표시해야 한다.
@@ -25,6 +35,7 @@ public interface MemberDao {
       @Param("email") String email, 
       @Param("password") String password);
 }
+
 
 
 

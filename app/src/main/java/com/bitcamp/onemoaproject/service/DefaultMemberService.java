@@ -29,6 +29,16 @@ public class DefaultMemberService implements MemberService {
   }
 
   @Override
+  public int updateStatus(String email) throws Exception {
+    return memberDao.updateStatus(email);
+  }
+
+  @Override
+  public boolean myinfoUpdate(Member member) throws Exception {
+    return memberDao.myinfoUpdate(member) > 0;
+  }
+
+  @Override
   public Member get(int no) throws Exception {
     return memberDao.findByNo(no);
   }
@@ -36,6 +46,11 @@ public class DefaultMemberService implements MemberService {
   @Override
   public Member get(String email, String password) throws Exception {
     return memberDao.findByEmailPassword(email, password);
+  }
+
+  @Override
+  public Member get(String email) throws Exception {
+    return memberDao.findByEmail(email);
   }
 
   @Transactional
@@ -49,6 +64,11 @@ public class DefaultMemberService implements MemberService {
   @Override
   public List<Member> list() throws Exception {
     return memberDao.findAll();
+  }
+
+  @Override
+  public void modifyPasswd(String email, String newPassword) {
+    memberDao.modifyPasswd(email, newPassword);
   }
 }
 

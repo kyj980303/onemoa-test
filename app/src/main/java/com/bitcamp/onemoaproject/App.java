@@ -2,6 +2,7 @@ package com.bitcamp.onemoaproject;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.ui.Model;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @EnableTransactionManagement
-@SpringBootApplication
+@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 public class App {
 
   public static void main(String[] args) {
@@ -19,17 +20,13 @@ public class App {
     SpringApplication.run(App.class, args);
   }
 
+
   @GetMapping("/")
   public String index(@CookieValue(name = "email", defaultValue = "") String email, Model model) {
     model.addAttribute("email", email);
     return "index";
   }
 
-
-  @GetMapping("/mypage")
-  public String mypage() {
-    return "mypage";
-  }
 
   @GetMapping("/contestTeam")
   public String contestTeam() {
